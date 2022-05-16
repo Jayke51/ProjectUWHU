@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model player {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  Goal   Int
+  ID     String
+  Nom    String
+  NumB   String
+  Prenom String
+  Team   String
+}
