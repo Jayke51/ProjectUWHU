@@ -11,6 +11,7 @@ import { PrismaClient } from '@prisma/client'// prima permet de faciliter les re
 const prisma = new PrismaClient()
 
 
+
 ////////////////////////////////////////////////////////////////fonction de séléction par rapport à la method
 export default async function handler(req, res) { 
   if (req.method === 'GET') {      // si method Get on cherche 
@@ -31,11 +32,12 @@ async function getPlayers(req, res) {
     const team = await prisma.player.findMany({ // ici on prend tout comme ça plus simple 
       where :{
         id : query.id,
-        Team : query.Team,
-        Nom : query.Nom,
-        Prenom : query.Prenom,
-        NumB : query.NumB,
-        Goal : query.Goal,
+        name: query.name,
+        surname: query.surname,
+        numb : query.numb,
+        cap : query.cap,
+        goal : query.goal,
+        team : query.team,
       }
     });
     return res.status(200).json(team, {success: true}) // on return le résult de la recherche 
@@ -48,19 +50,21 @@ async function getPlayers(req, res) {
 
 //////////////////////////////////////////////////////////////Fonction de update les joueur au cas ou de problème ou de but 
 async function upPlayers(req, res){
-  const body = req.body.params; // qui on veut 
-  console.log(body)
+  const params = req.body.params; // qui on veut 
+  console.log(params);
   try{
     const updatePlayer = await prisma.player.update({
       where : {       // ici on choisi le joeur avec l'id
-        id : body.id,
+        id : params.id,
       },
       data : {        // ici on choisi ce qu'on update 
-        Team : body.Team,
-        Nom : body.Nom,
-        Prenom : body.Prenom,
-        NumB : body.NumB,
-        Goal : body.Goal,
+        team : params.team,
+        name: params.name,
+        surname: params.surname,
+        numb : params.numb,
+        cap : params.cap,
+        goal : params.goal,
+        
       }
     });
     return res.status(200).json(updatePlayer, {success: true}) // on return a la DB

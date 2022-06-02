@@ -1,7 +1,15 @@
-import { prisma } from '@prisma/client'
+///////////////////////////////////////////
+//                                       //
+//Copyright (c) by Hugo Bardet           //
+//Page vue/export de la feuille de match //
+//                                       //
+///////////////////////////////////////////
+
 import Head from 'next/head'
 import Image from 'next/image'
 const axios = require('axios')
+const blackTeam = 'EKIP'
+import 'bootstrap/dist/css/bootstrap.css'
 
 export default function Home({dataPlayer}){
 
@@ -25,20 +33,23 @@ export default function Home({dataPlayer}){
         ctx.font = "30px Arial";
         let bCount = 0;
         let wCount = 0;
+
         NameList.forEach((player) =>{ // pour chaque joeur qu'on a fetch on le met à la bonne ligne et on écrit les BUT
-            if (player.Team === 'Black'){ //chaque ligne à remplire avec les cordo
-                ctx.fillText(player.Prenom,85*2, 2*(515+(25*bCount))) // Prenom
-                ctx.fillText(player.Nom,185*2, 2*(515+(25*bCount)))   // Nom
-                ctx.fillText(player.NumB,280*2, 2*(515+(25*bCount)))  // Numéro de Bonnet  
-                ctx.fillText(player.Goal,307*2, 2*(515+(25*bCount)))  // Nombre de but 
-                bCount++ 
+            if (player.team === blackTeam){ //chaque ligne à remplire avec les cordo
+
+                ctx.fillText(player.surname,85*2, 2*(515+(25*bCount))) // Prenom
+                ctx.fillText(player.name,185*2, 2*(515+(25*bCount)))   // Nom
+                ctx.fillText(player.numb,280*2, 2*(515+(25*bCount)))  // Numéro de Bonnet  
+                ctx.fillText(player.goal,307*2, 2*(515+(25*bCount)))  // Nombre de but 
+                bCount++//fait descendre de 1 dans la liste
             
             }else{ // chaque ligne à remplire avec les cordo
-                ctx.fillText(player.Prenom,2*(85+340), 2*(515+(25*wCount))) // Prenom
-                ctx.fillText(player.Nom,2*(185+340), 2*(515+(25*wCount)))   // Nom
-                ctx.fillText(player.NumB,2*(280+340), 2*(515+(25*wCount)))  // Numéro de bonnet
-                ctx.fillText(player.Goal,2*(307+340), 2*(515+(25*bCount)))  // Nombre de but 
-                wCount++
+
+                ctx.fillText(player.surname,2*(85+340), 2*(515+(25*wCount))) // Prenom
+                ctx.fillText(player.name,2*(185+340), 2*(515+(25*wCount)))   // Nom
+                ctx.fillText(player.numb,2*(280+340), 2*(515+(25*wCount)))  // Numéro de bonnet
+                ctx.fillText(player.goal,2*(307+340), 2*(515+(25*wCount)))  // Nombre de but 
+                wCount++//fait descendre de 1 dans la liste
               }})
         console.log("setup the player ")
     }
@@ -59,15 +70,15 @@ export default function Home({dataPlayer}){
     return(
         <>
             <Head>
-                <title>Test F2M</title>
+                <title>Export F2M</title>
             </Head>
 
             <body>
-                <h1>test </h1>
+                <h1>Vue de la Feuille de match </h1>
                 <div>
-                    <button onClick={() =>setupCanvas()}>Afficher le canvas</button>
-                    <button onClick={() =>drawn2myCanvas()}>afficher les data</button>
-                    <button onClick={() =>downloadCanvas()}>Télécharger la F2M</button> 
+                    <button type="button" class="btn btn-info" onClick={() =>setupCanvas()}>Afficher le canvas</button>
+                    <button type="button" class="btn btn-info" onClick={() =>drawn2myCanvas()}>afficher les data</button>
+                    <button type="button" class="btn btn-info" onClick={() =>downloadCanvas()}>Télécharger la F2M</button> 
                 </div>
                 
                 <div>

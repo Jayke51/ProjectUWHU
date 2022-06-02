@@ -8,11 +8,11 @@ datasource db {
 }
 
 model player {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  Goal   Int
-  ID     String
-  Nom    String
-  NumB   String
-  Prenom String
-  Team   String
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  surname String
+  numb    Int
+  cap     Boolean
+  goal    Int
+  team    String
 }
